@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Payment & Backend Flow Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    
+    <div class="heading">
+        <h3 style="font-size: 20px;text-align:center">Experience how UPI transactions work in real-time</h3></div>
+    <div class="container" id="bankDetails">
+        <div class="head">
+            <h2 style="color:#794cec">UPI Simulation</h2>
+        </div>
+        <div class="name">
+            <p  style="color:#794cec;padding-left:10px"><b>Account Holder</b></p>
+            <div class="block">
+        <p style="color: black;"> Rutuja Pathare</p>
+        </div>
+        </div>
+        <div class="upi">
+             <p  style="color:#794cec ;padding-left:10px"><b>UPI ID</b></p>
+             <div class="block">
+        <p style="color: black">rutujapathare48@sbi</p>
+        </div>
+        </div>
+        <div class="bankname" style="color: #111;">
+             <p style="color:#794cec;padding-left:10px"><b>Bank Name </b></p>
+             <div class="block">
+            <p>State Bank of India</p>
+            </div>
+        </div>
+        <button onclick="nextPage('amountPage')">Proceed to Payment</button>
+    </div>
+    <div class="container hidden" id="amountPage">
+    <h2 style="color: #794cec;">Enter Amount</h2>
+    <div class="bal">
+        <p id="balanceText" style="color: #794cec;margin-top:5px;text-align:left;padding-top:8px;"><b>Available Balance:</b></p>
+        <div class="block" style="margin-bottom: 10px;height:40px">
+            <p>₹10000</p>
+        </div>
+    </div>
+    <input type="number" id="amount" placeholder="Enter Amount ₹" style="background-color: white;border:none;color:black;margin-top:30px;height:40px">
+    <div class="error-msg" id="amountError"></div>
+    <button onclick="showBackendFlow('pinPage')">Next</button>
+</div>
+
+<div class="container hidden" id="pinPage">
+    <h2 style="color: #794cec;">Enter PIN</h2>
+    <input type="password" id="pin" placeholder="Enter 4-digit PIN" style="background-color: white;border:none;color:black">
+    <div class="error-msg" id="pinError"></div>
+    <button onclick="processTransaction()">Pay</button>
+</div>
+
+
+    <!-- <div class="container hidden" id="amountPage">
+        <h2 style="color: #794cec;">Enter Amount</h2>
+        <div class="bal">
+        <p id="balanceText" style="color: #794cec;margin-top:5px;text-align:left;padding-top:8px;"><b>Available Balance:</b></p>
+        <div class="block" style="margin-bottom: 10px;height:40px">
+            <p>₹10000</p>
+        </div>
+        </div>
+        <input type="number" id="amount" placeholder="Enter Amount ₹" style="background-color: white;border:none;color:black;margin-top:30px;height:40px">
+        <button onclick="showBackendFlow('pinPage')">Next</button>
+    </div>
+
+    <div class="container hidden" id="pinPage">
+        <h2 style="color: #794cec;">Enter PIN</h2>
+        <input type="password" id="pin" placeholder="Enter 4-digit PIN" style="background-color: white;border:none;color:black">
+        <button onclick="processTransaction()">Pay</button>
+    </div> -->
+
+    <div class="container hidden" id="processingPage">
+        <h2 style="color: #794cec;">Processing Transaction</h2>
+        <div class="loader"></div>
+    </div>
+
+    <div class="container hidden" id="successPage">
+        <div class="tick">✔</div>
+        <h2 style="color:#794cec">Transaction Successful!</h2>
+        <div class="receipt" id="receipt">
+
+        </div>
+    </div>
+
+    <!-- Backend Diagram -->
+    <div class="container hidden" id="backendDiagram">
+        <h2>Backend Flow</h2>
+        <div class="diagram" style="position:relative; height:450px;">
+            <div class="step" id="step1" style="top:10px;">User App Initiates Transaction</div>
+            <!-- <div class="arrow" id="arrow1" style="height:40px; left:50%; top:20px;"></div> -->
+
+            <div class="step" id="step2" style="top:50px;">Request Sent to NPCI</div>
+            <!-- <div class="arrow" id="arrow2" style="height:60px; left:50%; top:60px;"></div> -->
+
+            <div class="step" id="step3" style="top:100px;">Bank Validates & Checks Balance</div>
+            <!-- <div class="arrow" id="arrow3" style="height:60px; left:50%; top:220px;"></div> -->
+
+            <div class="step" id="step4" style="top:150px;">Transaction Confirmation Sent</div>
+            <!-- <div class="arrow" id="arrow4" style="height:60px; left:50%; top:300px;"></div> -->
+
+            <div class="step" id="step5" style="top:200px;">Response to User App</div>
+        </div>
+    </div>
+
+    <!-- SMS Popup -->
+    <div id="smsPopup"></div>
+    <div class="about">
+        <p>UPI Payment Simulation • By Rutuja Pathare & Sakshi Ghorpade</p>
+    </div>
+
+    <audio id="successSound" src="https://www.myinstants.com/media/sounds/cash-register-cha-ching.mp3"></audio>
+
+  
+    <script src="./script.js"></script>
+
+</body>
+
+</html>
